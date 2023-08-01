@@ -3,3 +3,6 @@ out/
 
 # Ignore .idea file
 .idea/
+# Ignore bin file
+bin/
+ProjectSwing_StartupCode.iml
