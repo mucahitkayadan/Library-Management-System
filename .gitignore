@@ -6,3 +6,5 @@ out/
 # Ignore bin file
 bin/
 ProjectSwing_StartupCode.iml
+.classpath
+.project
