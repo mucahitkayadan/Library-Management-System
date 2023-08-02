@@ -17,12 +17,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
 import business.ControllerInterface;
-
+import business.LoginException;
 import business.SystemController;
 
 
 public class LoginWindow extends JFrame implements LibWindow {
     public static final LoginWindow INSTANCE = new LoginWindow();
+    ControllerInterface ci = new SystemController();
 	
 	private boolean isInitialized = false;
 	
@@ -186,10 +187,29 @@ public class LoginWindow extends JFrame implements LibWindow {
     	
     	private void addLoginButtonListener(JButton butn) {
     		butn.addActionListener(evt -> {
-    			JOptionPane.showMessageDialog(this,"Successful Login");
-    				
+				try {
+					ci.login(username.getText(), password.getText());
+					JOptionPane.showMessageDialog(this,"Successful Login, Welcome "+username.getText());
+					setVisible(false);
+					LibrarySystem.INSTANCE.init();
+					Util.centerFrameOnDesktop(LibrarySystem.INSTANCE);
+					LibrarySystem.INSTANCE.setVisible(true);
+				} catch (LoginException loginException) {
+					JOptionPane.showMessageDialog(this,"Login failed: "+loginException.getMessage());
+				}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(this,"Login failed: "+e.getMessage());
+				}	
+				finally {
+					cleanTextFields();
+				}	
     		});
     	}
+    	
+    	private void cleanTextFields() {
+			username.setText("");
+			password.setText("");
+		}
 	
         
     
