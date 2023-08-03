@@ -66,7 +66,7 @@ public class BookCheckoutWindow extends JPanel implements LibWindow {
         JLabel memberIdLabel = new JLabel("Member ID:");
         middlePanel.add(memberIdLabel);
 
-        Collection<LibraryMember> members = ci.alLibraryMembers();
+        Collection<LibraryMember> members = ci.allLibraryMembers();
 
         String[] membersStrings = new String[members.size()];
         int counter = 0;

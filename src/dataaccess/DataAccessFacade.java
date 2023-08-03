@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import business.Book;
 import business.BookCopy;
@@ -93,8 +94,29 @@ public class DataAccessFacade implements DataAccess {
 				} catch(Exception e) {}
 			}
 		}
+
+	}
+	public void deleteMember(String memberId) {
+		HashMap<String, LibraryMember> mems = readMemberMap();
+		mems.remove(memberId);
+		saveToStorage(StorageType.MEMBERS, mems);
+
 	}
 	
+	public void saveBook(Book book) {
+		HashMap<String, Book> books = readBooksMap();
+		books.put(book.getIsbn(), book);
+		saveToStorage(StorageType.BOOKS, books);
+	}
+
+	public Optional<Book> findBookByIsbn(String isbn) {
+		return Optional.ofNullable(readBooksMap().get(isbn));
+	}
+
+	public Optional<LibraryMember> findMemberById(String memberId) {
+		return Optional.ofNullable(readMemberMap().get(memberId));
+	}
+
 	static Object readFromStorage(StorageType type) {
 		ObjectInputStream in = null;
 		Object retVal = null;
