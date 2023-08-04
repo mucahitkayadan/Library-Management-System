@@ -66,12 +66,38 @@ public class SystemController implements ControllerInterface {
         return da.findMemberById(memberId).orElse(null);
     }
     
+    @Override
+    public void deleteMember(String memberId) {
+    	DataAccess da = new DataAccessFacade();
+        da.deleteMember(memberId);
 
+    }
+
+    @Override
+    public LibraryMember getLibraryMemberById(String memberId) {
+    	DataAccess da = new DataAccessFacade();
+        Collection<LibraryMember> members = da.readMemberMap().values();
+        for (LibraryMember member : members) {
+            if (member.getMemberId().equals(memberId)) {
+                return member;
+            }
+        }
+        return null;
+    }
+    
     @Override
     public void saveBook(Book book) {
     	DataAccess da = new DataAccessFacade();
         da.saveBook(book);
     } 
+    
+    @Override
+    public void saveMember(LibraryMember member) {
+    	DataAccess da = new DataAccessFacade();
+        da.saveNewMember(member);
+
+    }
+    
     @Override
     public void checkBook(String memberId, String isbn) throws LibrarySystemException {
         DataAccess dao = new DataAccessFacade();

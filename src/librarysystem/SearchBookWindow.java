@@ -124,7 +124,7 @@ public class SearchBookWindow extends JPanel implements LibWindow {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-            List<CheckoutRecord> records = ci.alLibraryMembers().stream()
+            List<CheckoutRecord> records = ci.allLibraryMembers().stream()
                     .map(LibraryMember::getCheckoutRecords)
                     .filter(checkoutRecords -> checkoutRecords.size() > 0)
                     .flatMap(List::stream)

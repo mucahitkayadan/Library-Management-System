@@ -51,7 +51,7 @@ public class ListLibraryMemberWindow extends JPanel implements LibWindow {
         Object[] columnsObjects = {"ID", "First Name", "Last Name", "TEL", "Address"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columnsObjects);
-        Collection<LibraryMember> members = ci.alLibraryMembers();
+        Collection<LibraryMember> members = ci.allLibraryMembers();
         for (LibraryMember member : members) {
             model.addRow(new Object[]{
                     member.getMemberId(),

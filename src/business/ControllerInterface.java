@@ -18,5 +18,8 @@ public interface ControllerInterface {
 	public void saveBook(Book book);
 	public LibraryMember findMemberById(String memberId);
 	public List<CheckoutHistory> getCheckoutHistory();
+	public void deleteMember(String memberId);
+	public LibraryMember getLibraryMemberById(String memberId);
+	public void saveMember(LibraryMember member);
 	
 }
