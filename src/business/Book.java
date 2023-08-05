@@ -44,12 +44,21 @@ final public class Book implements Serializable {
 		return retVal;
 		
 	}
-	
+
 	public void addCopy() {
 		BookCopy[] newArr = new BookCopy[copies.length + 1];
 		System.arraycopy(copies, 0, newArr, 0, copies.length);
 		newArr[copies.length] = new BookCopy(this, copies.length +1, true);
 		copies = newArr;
+	}
+
+	
+	public void addCopy(BookCopy bookCopy) {
+		BookCopy[] newArr = new BookCopy[copies.length + 1];
+		System.arraycopy(copies, 0, newArr, 0, copies.length);
+		newArr[copies.length] = bookCopy;
+		copies = newArr;
+
 	}
 	
 	
@@ -60,7 +69,6 @@ final public class Book implements Serializable {
 		Book b = (Book)ob;
 		return b.isbn.equals(isbn);
 	}
-	
 	
 	
 	public boolean isAvailable() {
@@ -113,21 +121,9 @@ final public class Book implements Serializable {
 	public int getMaxCheckoutLength() {
 		return maxCheckoutLength;
 	}
-	
-	public Integer getAvailableBooksLength() {
-		Integer count = 0;
-		if (copies == null) {
-			return 0;
-		}
 
-		for (BookCopy bookCopy : copies) {
-			if (bookCopy.isAvailable()) {
-				count += 1;
-			}
-		}
 
-		return count;
-	}
+
 	
 	
 	

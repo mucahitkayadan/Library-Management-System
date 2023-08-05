@@ -1,6 +1,7 @@
 package librarysystem;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.TextArea;
 import java.util.List;
@@ -9,26 +10,35 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import business.ControllerInterface;
 import business.SystemController;
 
-
-public class AllMemberIdsWindow extends JFrame implements LibWindow {
+public class AllMemberIdsWindow extends JPanel implements LibWindow {
 	public static final AllMemberIdsWindow INSTANCE = new AllMemberIdsWindow();
-    ControllerInterface ci = new SystemController();
+	ControllerInterface ci = new SystemController();
 	private boolean isInitialized = false;
+
 	public JPanel getMainPanel() {
 		return mainPanel;
 	}
+
 	private JPanel mainPanel;
 	private JPanel topPanel;
 	private JPanel middlePanel;
 	private JPanel lowerPanel;
-	private TextArea textArea;
-	
-	private AllMemberIdsWindow() {}
-	
+	private String[] columnNames = { "N", "Id", "First Name", "LastName", "Phone Number" };
+	private JTable table;
+
+	private AllMemberIdsWindow() {
+		super(new BorderLayout());
+		init();
+	}
+
 	public void init() {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
@@ -36,12 +46,12 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 		defineMiddlePanel();
 		defineLowerPanel();
 		mainPanel.add(topPanel, BorderLayout.NORTH);
-		mainPanel.add(middlePanel, BorderLayout.CENTER);	
+		mainPanel.add(middlePanel, BorderLayout.CENTER);
 		mainPanel.add(lowerPanel, BorderLayout.SOUTH);
-		getContentPane().add(mainPanel);
+		add(mainPanel);
 		isInitialized = true;
 	}
-	
+
 	public void defineTopPanel() {
 		topPanel = new JPanel();
 		JLabel AllIDsLabel = new JLabel("All Member IDs");
@@ -49,47 +59,54 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		topPanel.add(AllIDsLabel);
 	}
-	
+
 	public void defineMiddlePanel() {
 		middlePanel = new JPanel();
-		FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 25, 25);
-		middlePanel.setLayout(fl);
-		textArea = new TextArea(8,20);
-		middlePanel.add(textArea);
-		
+		String[][] data = SystemController.allMembers();
+
+		table = new JTable(new DefaultTableModel(data, columnNames));
+		table. getColumnModel().getColumn(0).setPreferredWidth(20);
+		table.setEnabled(false);
+		table.setBounds(30, 40, 200, 200);
+
+		// adding it to JScrollPane
+		JScrollPane sp = new JScrollPane(table);
+		middlePanel.add(sp);
 	}
-	
+
+	public void reloadMember() {
+		String[][] data = SystemController.allMembers();
+		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
+		// Clear All
+		for (int i = 0; i < data.length; i++) {
+		}
+		for (int i = table.getRowCount() - 1; i > -1; i--) {
+			defaultTableModel.removeRow(i);
+	    }
+		// Add All
+		for (int i = 0; i < data.length; i++) {
+			defaultTableModel.insertRow(i, data[i]);
+		}
+	}
+
 	public void defineLowerPanel() {
 		lowerPanel = new JPanel();
 		FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
 		lowerPanel.setLayout(fl);
 		JButton backButton = new JButton("<== Back to Main");
-		addBackButtonListener(backButton);
-		lowerPanel.add(backButton);
-	}
-	
-	public void setData(String data) {
-		textArea.setText(data);
-	}
-	private void addBackButtonListener(JButton butn) {
-		butn.addActionListener(evt -> {
-		   LibrarySystem.hideAllWindows();
-		   LibrarySystem.INSTANCE.setVisible(true);
-	    });
+		lowerPanel.setVisible(false);
 	}
 
 	@Override
 	public boolean isInitialized() {
-		
+
 		return isInitialized;
 	}
 
 	@Override
 	public void isInitialized(boolean val) {
 		isInitialized = val;
-		
+
 	}
-	
+
 }
-
-
