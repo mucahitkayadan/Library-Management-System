@@ -9,8 +9,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -36,6 +38,8 @@ public class AddBookWindow extends JPanel implements LibWindow{
     private JLabel titleLabel;
     private JTextField checkoutDayDurationField;
     private JLabel checkoutDayDurationLabel;
+    private JComboBox checkoutDay;
+    private JLabel checkoutDayLabel;
     private JTextField authorField;
     private JLabel authorLabel;
     private JLabel addLibraryMemberHeadingLabel;
@@ -94,6 +98,9 @@ public class AddBookWindow extends JPanel implements LibWindow{
         titleLabel = new JLabel ("Title");
         checkoutDayDurationField = new JTextField (5);
         checkoutDayDurationLabel = new JLabel ("Borrow Days");
+        checkoutDay = new JComboBox();
+        checkoutDayLabel = new JLabel("Borrow Days");
+        checkoutDay.setModel(new DefaultComboBoxModel(new String[] {"7", "21"}));
         authorField = new JTextField (5);
         authorLabel = new JLabel ("Author");
         addLibraryMemberHeadingLabel = new JLabel ("Add Book");
@@ -123,8 +130,10 @@ public class AddBookWindow extends JPanel implements LibWindow{
         add (isbnLabel);
         add (titleField);
         add (titleLabel);
-        add (checkoutDayDurationField);
-        add (checkoutDayDurationLabel);
+//        add (checkoutDayDurationField);
+//        add (checkoutDayDurationLabel);
+        add (checkoutDay);
+        add (checkoutDayLabel);
         add (authorField);
         add (authorLabel);
         add (addLibraryMemberHeadingLabel);
@@ -149,8 +158,10 @@ public class AddBookWindow extends JPanel implements LibWindow{
         isbnLabel.setBounds (45, 110, 65, 25);
         titleField.setBounds (390, 110, 140, 25);
         titleLabel.setBounds (315, 110, 100, 25);
-        checkoutDayDurationField.setBounds (125, 165, 145, 25);
-        checkoutDayDurationLabel.setBounds (45, 165, 100, 25);
+//        checkoutDayDurationField.setBounds (125, 165, 145, 25);
+//        checkoutDayDurationLabel.setBounds (45, 165, 100, 25);
+        checkoutDay.setBounds(125, 165, 145, 25);
+        checkoutDayLabel.setBounds(45, 165, 100, 25);
         authorField.setBounds (390, 170, 145, 25);
         authorLabel.setBounds (315, 165, 100, 25);
         addLibraryMemberHeadingLabel.setBounds (250, 30, 155, 50);
@@ -193,7 +204,7 @@ public class AddBookWindow extends JPanel implements LibWindow{
 		        }
 		        
 		        try {
-					ci.addBook(isbnTextField.getText(), titleField.getText(), authorArrayList, checkoutDayDurationField.getText(),copiesUnitTextField.getText());
+					ci.addBook(isbnTextField.getText(), titleField.getText(), authorArrayList, checkoutDay.getSelectedItem().toString(),copiesUnitTextField.getText());
 					clearFields();
 					AllBookIdsWindow.INSTANCE.reloadBooks();
 					JOptionPane.showMessageDialog(this,"Book has been added successfully");
