@@ -75,14 +75,14 @@ public class AppPanel extends JPanel {
 
 	private void setLeftAppSidePanel() {
 		leftLoginSide = new JPanel();
-		leftLoginSide.setBackground(Color.GRAY);
+		leftLoginSide.setBackground(Color.lightGray);
 		paintMenu();
 	}
 
 	public void paintMenu() {
 		sideBarMenuList = new JList<String>(getRoleMenu());
-		sideBarMenuList.setBackground(Color.GRAY);
-		sideBarMenuList.setForeground(Color.white);
+		sideBarMenuList.setBackground(Color.WHITE);
+		sideBarMenuList.setForeground(Color.black);
 		sideBarMenuList.setSelectedIndex(0);
 
 		sideBarMenuList.setFixedCellHeight(40);
@@ -101,7 +101,7 @@ public class AppPanel extends JPanel {
 		renderer.setHorizontalAlignment(JLabel.CENTER);
 
 		logoutBtn = new JButton("Logout");
-		logoutBtn.setBackground(Color.WHITE);
+		logoutBtn.setBackground(Color.RED);
 		// logoutBtn.setForeground(Color.WHITE);
 
 
@@ -116,7 +116,7 @@ public class AppPanel extends JPanel {
 
 	private void setRightAppSidePanel() {
 		rightLoginSide = new JPanel(new CardLayout());
-		rightLoginSide.setBackground(Color.white);
+		rightLoginSide.setBackground(Color.gray);
 
 		dashboard = DashboardWindow.INSTANCE;
 		addBookPanel = AddBookWindow.INSTANCE;

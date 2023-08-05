@@ -27,9 +27,9 @@ public class LoginPanel extends JPanel {
 
 	private void setLeftLoginSidePanel() {
 		leftLoginSide = new JPanel(new BorderLayout());
-		leftLoginSide.setBackground(Color.GRAY);
+		leftLoginSide.setBackground(Color.LIGHT_GRAY);
 		String currDirectory = System.getProperty("user.dir");
-    	String pathToImage = currDirectory+"/src/librarysystem/icon.jpg";
+    	String pathToImage = currDirectory+"/src/librarysystem/home.jpeg";
         ImageIcon image = new ImageIcon(pathToImage);
 
 		JLabel icon = new JLabel(image);
@@ -39,7 +39,7 @@ public class LoginPanel extends JPanel {
 
 	private void setRightLoginSidePanel() {
 		rightLoginSide = new JPanel();
-		rightLoginSide.setBackground(Color.white);
+		rightLoginSide.setBackground(Color.LIGHT_GRAY);
 		rightLoginSide.add(LoginWindow.INSTANCE);
 	}
 
